@@ -1,5 +1,6 @@
 package com.texoit.worstmovie;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,27 +18,32 @@ public class Movie {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "id", nullable = false)
-   private int id;
-   
+   private Long id;
+
    @Column(name = "title", nullable = false)
-   private final String title;
+   private String title;
 
    @Column(name = "year", nullable = false)
-   private final int year;
+   private int year;
 
    @Column(name = "winner", nullable = false)
-   private final boolean winner;
-
-   @ManyToMany
-   private Set<Producer> producers;
+   private boolean winner;
 
    @ManyToMany
    private Set<Studio> studios;
 
-   public Movie(String title, int year, boolean winner) {
+   @ManyToMany
+   private Set<Producer> producers;
+
+   public Movie() {
+   }
+
+   public Movie(int year, String title, boolean winner) {
       this.title = title;
       this.year = year;
       this.winner = winner;
+      this.studios = new HashSet<Studio>();
+      this.producers = new HashSet<Producer>();
    }
 
    public int getYear() {
@@ -50,6 +56,14 @@ public class Movie {
 
    public boolean isWinner() {
       return winner;
+   }
+
+   public void addStudio(Studio s) {
+      this.studios.add(s);
+   }
+
+   public void addProducer(Producer p) {
+      this.producers.add(p);
    }
 
 }

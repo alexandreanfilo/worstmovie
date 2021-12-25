@@ -17,16 +17,19 @@ public class Studio {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "id", nullable = false)
-   private int id;
-   
+   private Long id;
+
    @Column(name = "name")
    private String name;
 
    @ManyToMany
    private Set<Movie> movies;
 
+   public Studio() {
+   }
+
    public Studio(String name) {
-      this.setName(name);
+      this.name = name;
    }
 
    public String getName() {

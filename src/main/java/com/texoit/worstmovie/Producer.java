@@ -17,7 +17,7 @@ public class Producer {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "id", nullable = false)
-   private int id;
+   private Long id;
 
    @Column(name = "name")
    private String name;
@@ -25,8 +25,11 @@ public class Producer {
    @ManyToMany
    private Set<Movie> movies;
 
+   public Producer() {
+   }
+
    public Producer(String name) {
-      this.setName(name);
+      this.name = name;
    }
 
    public String getName() {
