@@ -1,13 +1,18 @@
 package com.texoit.worstmovie;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
-public class AwardsController {
+public class MoviesController {
 
-   @GetMapping("/awards/max-min-intervals")
+   @Autowired
+   private CSVService csv;
+   
+   @GetMapping("/movies/max-min-intervals")
    public String hello() {
+      this.csv.importMovies();
       return new String("max-min-intervals...");
    }
 
