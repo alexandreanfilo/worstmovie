@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,10 +30,10 @@ public class Movie {
    @Column(name = "winner", nullable = false)
    private boolean winner;
 
-   @ManyToMany
+   @ManyToMany(fetch = FetchType.EAGER)
    private Set<Studio> studios;
 
-   @ManyToMany
+   @ManyToMany(fetch = FetchType.EAGER)
    private Set<Producer> producers;
 
    public Movie() {
