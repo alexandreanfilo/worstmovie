@@ -43,7 +43,7 @@ class WorstmovieApplicationTests {
 		this.mockMvc.perform(get("/producers/all"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$", hasSize(367)))
+				.andExpect(jsonPath("$", hasSize(359)))
 				.andExpect(jsonPath("$[0].name", is("Allan Carr")));
 	}
 

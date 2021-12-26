@@ -46,7 +46,7 @@ public class CSVService {
 
             Movie movie = new Movie(year, title, winner);
 
-            String[] studioNames = row.get("studios").split(",|and");
+            String[] studioNames = row.get("studios").split(",| and ");
             for (String studioName : studioNames) {
                studioName = studioName.trim();
                if (studioName.equals(""))
@@ -61,7 +61,7 @@ public class CSVService {
                movie.addStudio(studio);
             }
 
-            String[] producerNames = row.get("producers").split(",|and");
+            String[] producerNames = row.get("producers").split(",| and ");
             for (String producerName : producerNames) {
                producerName = producerName.trim();
                if (producerName.equals(""))
