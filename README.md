@@ -23,7 +23,7 @@ Foram desenvolvidos 1 teste de integração para cada endpoint. Os 3 primeiros s
 
 A ferramenta utilizada para desenvolvimento dos testes foi a JUnit 5, no VS CODE, e os testes foram executados utilizando o plugin "Test Runner for Java", o qual mostra a suite com todos os testes no menu lateral "Testing".
 
-Os tests também podem ser executados pelo Maven: ```mvn tests```
+Os tests também podem ser executados pelo Maven: ```mvn test```
 
 ## Obrigado pela oportunidade,
 Alexandre Hauer Anfilo.
