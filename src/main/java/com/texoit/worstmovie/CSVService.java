@@ -36,7 +36,7 @@ public class CSVService {
 
          CSVFormat format = CSVFormat.newFormat(';')
                .withHeader("year", "title", "studios", "producers", "winner")
-               .withSkipHeaderRecord();
+               .withSkipHeaderRecord(true);
          CSVParser csv = CSVParser.parse(moviesFile, Charset.defaultCharset(), format);
 
          Iterable<CSVRecord> csvRecords = csv.getRecords();
