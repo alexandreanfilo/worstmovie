@@ -32,33 +32,36 @@ public class ProducerController {
       List<ConsecutiveAwardsDTO> minArray = new ArrayList<ConsecutiveAwardsDTO>();
       List<ConsecutiveAwardsDTO> maxArray = new ArrayList<ConsecutiveAwardsDTO>();
 
-      ConsecutiveAwardsDTO current = null;
+      ConsecutiveAwardsDTO minReference = null;
+      ConsecutiveAwardsDTO maxReference = null;
 
       for (Object[] consecutiveAwardValues : consecutiveAwards) {
-         ConsecutiveAwardsDTO consecutiveAward = new ConsecutiveAwardsDTO(
+         ConsecutiveAwardsDTO currentAward = new ConsecutiveAwardsDTO(
                consecutiveAwardValues[0].toString(),                    // producer
                Integer.parseInt(consecutiveAwardValues[1].toString()),  // interval
                Integer.parseInt(consecutiveAwardValues[2].toString()),  // previous
                Integer.parseInt(consecutiveAwardValues[3].toString())); // following
 
-         if (current == null) {
-            current = consecutiveAward;
+         if (minReference == null && maxReference == null) {
+            minReference = currentAward;
+            maxReference = currentAward;
          }
 
-         if (consecutiveAward.getInterval() <= current.getInterval()) {
-            minArray.add(consecutiveAward);
+         if (currentAward.getInterval() <= minReference.getInterval()) {
+            if (currentAward.getInterval() < minReference.getInterval()) {
+               minArray.clear();
+            }
+            minArray.add(currentAward);
+            minReference = currentAward;
          }
 
-         if (consecutiveAward.getInterval() == current.getInterval()) {
-            maxArray.add(consecutiveAward);
+         if (currentAward.getInterval() >= currentAward.getInterval()) {
+            if (currentAward.getInterval() > maxReference.getInterval()) {
+               maxArray.clear();
+            }
+            maxArray.add(currentAward);
+            maxReference = currentAward;
          }
-
-         if (consecutiveAward.getInterval() > current.getInterval()) {
-            maxArray.remove(current);
-            maxArray.add(consecutiveAward);
-         }
-
-         current = consecutiveAward;
       }
 
       Map<String, Object> responseMap = new HashMap<>();
