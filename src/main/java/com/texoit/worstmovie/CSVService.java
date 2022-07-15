@@ -10,6 +10,13 @@ import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.texoit.worstmovie.Movie.Movie;
+import com.texoit.worstmovie.Movie.MovieRepository;
+import com.texoit.worstmovie.Producer.Producer;
+import com.texoit.worstmovie.Producer.ProducerRepository;
+import com.texoit.worstmovie.Studio.Studio;
+import com.texoit.worstmovie.Studio.StudioRepository;
+
 @Service
 public class CSVService {
 
@@ -37,6 +44,7 @@ public class CSVService {
          CSVFormat format = CSVFormat.newFormat(';')
                .withHeader("year", "title", "studios", "producers", "winner")
                .withSkipHeaderRecord(true);
+
          CSVParser csv = CSVParser.parse(moviesFile, Charset.defaultCharset(), format);
 
          Iterable<CSVRecord> csvRecords = csv.getRecords();

@@ -1,6 +1,8 @@
-package com.texoit.worstmovie;
+package com.texoit.worstmovie.Producer;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import com.texoit.worstmovie.ConsecutiveAwardsDTO;
 
 import java.util.ArrayList;
 import java.util.HashMap;

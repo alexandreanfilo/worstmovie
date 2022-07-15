@@ -1,4 +1,4 @@
-package com.texoit.worstmovie;
+package com.texoit.worstmovie.Movie;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.texoit.worstmovie.Producer.Producer;
+import com.texoit.worstmovie.Studio.Studio;
 
 @Entity
 @Table(name = "movies")

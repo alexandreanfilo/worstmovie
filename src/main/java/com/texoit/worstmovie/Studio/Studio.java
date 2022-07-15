@@ -1,4 +1,4 @@
-package com.texoit.worstmovie;
+package com.texoit.worstmovie.Studio;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "producers")
-public class Producer {
+@Table(name = "studios")
+public class Studio {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,10 +19,10 @@ public class Producer {
    @Column(name = "name")
    private String name;
 
-   public Producer() {
+   public Studio() {
    }
 
-   public Producer(String name) {
+   public Studio(String name) {
       this.name = name;
    }
 

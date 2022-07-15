@@ -1,4 +1,4 @@
-package com.texoit.worstmovie;
+package com.texoit.worstmovie.Movie;
 
 import java.util.List;
 

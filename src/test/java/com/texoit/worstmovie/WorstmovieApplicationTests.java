@@ -27,10 +27,13 @@ class WorstmovieApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("contextLoads...");
 	}
 
 	@Test
 	public void shouldReturnAllMovies() throws Exception {
+		// todo: Ler arquivo e validar se todos os MOVIES retornados pela API batem com do arquivo
+
 		this.mockMvc.perform(get("/movies/all"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -40,6 +43,8 @@ class WorstmovieApplicationTests {
 
 	@Test
 	public void shouldReturnAllProducers() throws Exception {
+		// todo: Ler arquivo e validar se todos os PRODUCERS retornados pela API batem com do arquivo
+
 		this.mockMvc.perform(get("/producers/all"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -49,6 +54,8 @@ class WorstmovieApplicationTests {
 
 	@Test
 	public void shouldReturnAllStudios() throws Exception {
+		// todo: Ler arquivo e validar se todos os STUDIOS retornados pela API batem com do arquivo
+
 		this.mockMvc.perform(get("/studios/all"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -58,6 +65,8 @@ class WorstmovieApplicationTests {
 
 	@Test
 	public void shouldReturnConsecutiveAwards() throws Exception {
+		// todo: Refazer calculo e validar se bate com os valores retornados pela API		
+
 		this.mockMvc.perform(get("/producers/consecutive-awards"))
 				.andExpect(status().isOk())
 				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
