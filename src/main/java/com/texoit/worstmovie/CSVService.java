@@ -3,94 +3,68 @@ package com.texoit.worstmovie;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.texoit.worstmovie.Movie.Movie;
-import com.texoit.worstmovie.Movie.MovieRepository;
-import com.texoit.worstmovie.Producer.Producer;
-import com.texoit.worstmovie.Producer.ProducerRepository;
-import com.texoit.worstmovie.Studio.Studio;
-import com.texoit.worstmovie.Studio.StudioRepository;
 
 @Service
 public class CSVService {
 
-   private final String fileName = "movielist.csv";
+   public Iterable<CSVRecord> getCSVRecords(String fileName) {
+      File moviesFile = new File(fileName);
 
-   private final StudioRepository studioRepository;
-   private final ProducerRepository producerRepository;
-   private final MovieRepository movieRepository;
+      CSVFormat format;
+      CSVParser csv;
 
-   @Autowired
-   public CSVService(StudioRepository sR, ProducerRepository pR, MovieRepository mR) {
-      this.studioRepository = sR;
-      this.producerRepository = pR;
-      this.movieRepository = mR;
+      format = CSVFormat.newFormat(';')
+            .withHeader("year", "title", "studios", "producers", "winner")
+            .withSkipHeaderRecord(true);
 
-      this.importMovies();
-   }
-
-   public void importMovies() {
       try {
-         System.out.println("Importing movies...");
+         csv = CSVParser.parse(moviesFile, Charset.defaultCharset(), format);
 
-         File moviesFile = new File(this.fileName);
-
-         CSVFormat format = CSVFormat.newFormat(';')
-               .withHeader("year", "title", "studios", "producers", "winner")
-               .withSkipHeaderRecord(true);
-
-         CSVParser csv = CSVParser.parse(moviesFile, Charset.defaultCharset(), format);
-
-         Iterable<CSVRecord> csvRecords = csv.getRecords();
-
-         for (CSVRecord row : csvRecords) {
-            var year = Integer.parseInt(row.get("year"));
-            var title = row.get("title");
-            var winner = row.get("winner").trim().equals("yes");
-
-            Movie movie = new Movie(year, title, winner);
-
-            String[] studioNames = row.get("studios").split(",| and ");
-            for (String studioName : studioNames) {
-               studioName = studioName.trim();
-               if (studioName.equals(""))
-                  continue;
-
-               Studio studio = studioRepository.findByName(studioName);
-               if (studio == null) {
-                  studio = new Studio(studioName);
-                  studioRepository.save(studio);
-               }
-
-               movie.addStudio(studio);
-            }
-
-            String[] producerNames = row.get("producers").split(",| and ");
-            for (String producerName : producerNames) {
-               producerName = producerName.trim();
-               if (producerName.equals(""))
-                  continue;
-
-               Producer producer = producerRepository.findByName(producerName);
-               if (producer == null) {
-                  producer = new Producer(producerName);
-                  producerRepository.save(producer);
-               }
-
-               movie.addProducer(producer);
-            }
-
-            this.movieRepository.save(movie);
-         }
+         return csv.getRecords();
       } catch (IOException e) {
          e.printStackTrace();
       }
+
+      return null;
+   }
+
+   public String findStringValue(CSVRecord row, String header) {
+      String value = row.get(header).trim();
+
+      if (value.isEmpty()) {
+         return null;
+      }
+
+      return value;
+   }
+
+   public Integer findIntegerValue(CSVRecord row, String header) {
+      return Integer.parseInt(row.get(header));
+   }
+
+   public Boolean findBooleanValue(CSVRecord row, String header, String trueCompare) {
+      return row.get(header).trim().equals(trueCompare);
+   }
+
+   public List<String> findSplittedValues(CSVRecord row, String header, String split) {
+      String[] splittedValues = row.get(header).split(split);
+      List<String> values = new ArrayList<String>();
+
+      for (String name : splittedValues) {
+         name = name.trim();
+         if (!name.equals("")) {
+            values.add(name);
+         }
+      }
+
+      return values;
    }
 
 }
