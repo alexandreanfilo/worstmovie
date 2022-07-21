@@ -14,6 +14,11 @@ public class ConsecutiveAwardsDTO {
       this.followingWin = followingWin;
    }
 
+   public ConsecutiveAwardsDTO(String producer, int interval) {
+      this.producer = producer;
+      this.interval = interval;
+   }
+
    public String getProducer() {
       return producer;
    }
